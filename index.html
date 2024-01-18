@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Switchable Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background-image: url('ff_1.jpg');
+        }
+
+        #basic-section,
+        #stats-section {
+            display: none;
+        }
+
+        .lime-box {
+            background-color: rgb(199, 197, 197);
+            padding: 20px;
+            margin: 10px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #input-box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="input-box">
+        <input type="text" id="inputText" placeholder="Enter text">
+        <button onclick="getData()">Get Data</button>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+    <button onclick="showSection('basic-section')">Basic</button>
+    <button onclick="showSection('stats-section')">Stats</button>
+
+    <div id="basic-section">
+        <h2>Basic Section</h2>
+        <div class="lime-box" id="apiData">
+            <p> Loading </p>
+            <!-- API data will be displayed here -->
+        </div>
+    </div>
+
+    <div id="stats-section">
+        <h2>Stats Section</h2>
+        <div class="lime-box" id="stats">
+            <p>Loading</p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('div[id$="-section"]');
+            sections.forEach(function (section) {
+                section.style.display = 'none';
+            });
+
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function getData() {
+            var inputText = document.getElementById('inputText').value;
+
+            // Construct API URL
+            var apiUrl = `https://freefireapi.com.br/api/like_id?region=ind&id=${inputText}`;
+            var apiUrl2 = `https://freefireapi.com.br/api/search_id?id=${inputText}&region=ind`;
+            var apiUrl3 = 'https://freefireapi.com.br/api/stats?id=' + inputText + '&match_mode=0&region=ind'
+            var apiUrl4 = 'https://freefireapi.com.br/api/stats?id=' + inputText + '&match_mode=1&region=ind'
+            var apiUrl5 = 'https://freefireapi.com.br/api/stats?id=' + inputText + '&match_mode=2&region=ind'
+         //   var apiUrl6 = 'https://freefireapi.com.br/api/stats?id=' + inputText + '&match_mode=3&region=ind'
+            
+            
+
+            // Fetch data from API
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Extract 'nickname' and 'createAt' from the API response
+                    var nickname = data.basicInfo.nickname;
+                    var createdAtTimestamp = data.basicInfo.createAt;
+                    var level = data.basicInfo.level
+                    var br_points = data.basicInfo.rankingPoints
+                    var br = "Bronze 1"
+                    var cs_points = data.basicInfo.csRankingPoints
+                    var cs_rank = "Bronze 1 (0 Star)"
+                    var likes = data.basicInfo.liked
+                    var exp = data.basicInfo.exp
+                    var badgeno = data.basicInfo.badgeCnt
+                    var avID = data.basicInfo.headPic
+
+                    // Declare 'about' variable outside the fetch block
+                    var about;
+
+                    fetch(apiUrl2)
+                        .then(response2 => response2.json())
+                        .then(data2 => {
+                            about = data2.socialInfo.signature;
+
+                            // Format 'createAt' timestamp to human-readable format
+                            var createdAt = new Date(createdAtTimestamp * 1000); // Convert to milliseconds
+                            var formattedCreatedAt = createdAt.toLocaleString('en-US', {
+                                month: 'long',
+                                day: 'numeric',
+                                year: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                hour12: true
+                            });
+                            var lastlog = data.basicInfo.lastLoginAt
+                            var loglast = new Date(lastlog * 1000);
+                            var lastlogin = loglast.toLocaleString('en-US', {
+                                month: 'long',
+                                day: 'numeric',
+                                year: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                hour12: true
+                            });
+
+                            // check cs rank
+
+                    //let cs_rank;
+
+if (cs_points === 1) {
+    cs_rank = "Bronze 1 (1 Star)";
+} else if (cs_points === 2) {
+    cs_rank = "Bronze 1 (2 Star)";
+} else if (cs_points === 3) {
+    cs_rank = "Bronze 1 (3 Star)";
+} else if (cs_points === 4) {
+    cs_rank = "Bronze 2 (1 Star)";
+} else if (cs_points === 5) {
+    cs_rank = "Bronze 2 (2 Star)";
+} else if (cs_points === 6) {
+    cs_rank = "Bronze 2 (3 Star)";
+} else if (cs_points === 7) {
+    cs_rank = "Bronze 3 (1 Star)";
+} else if (cs_points === 8) {
+    cs_rank = "Bronze 3 (2 Star)";
+} else if (cs_points === 9) {
+    cs_rank = "Bronze 3 (3 Star)";
+} else if (cs_points === 10) {
+    cs_rank = "Silver 1 (1 Star)";
+} else if (cs_points === 11) {
+    cs_rank = "Silver 1 (2 Star)";
+} else if (cs_points === 12) {
+    cs_rank = "Silver 1 (3 Star)";
+} else if (cs_points === 13) {
+    cs_rank = "Silver 1 (4 Star)";
+} else if (cs_points === 14) {
+    cs_rank = "Silver 2 (1 Star)";
+} else if (cs_points === 15) {
+    cs_rank = "Silver 2 (2 Star)";
+} else if (cs_points === 16) {
+    cs_rank = "Silver 2 (3 Star)";
+} else if (cs_points === 17) {
+    cs_rank = "Silver 2 (4 Star)";
+} else if (cs_points === 18) {
+    cs_rank = "Silver 3 (1 Star)";
+} else if (cs_points === 19) {
+    cs_rank = "Silver 3 (2 Star)";
+} else if (cs_points === 20) {
+    cs_rank = "Silver 3 (3 Star)";
+} else if (cs_points === 21) {
+    cs_rank = "Silver 3 (4 Star)";
+} else if (cs_points === 22) {
+    cs_rank = "Gold 1 (1 Star)";
+} else if (cs_points === 23) {
+    cs_rank = "Gold 1 (2 Star)";
+} else if (cs_points === 24) {
+    cs_rank = "Gold 1 (3 Star)";
+} else if (cs_points === 25) {
+    cs_rank = "Gold 1 (4 Star)";
+} else if (cs_points === 26) {
+    cs_rank = "Gold 2 (1 Star)";
+} else if (cs_points === 27) {
+    cs_rank = "Gold 2 (2 Star)";
+} else if (cs_points === 28) {
+    cs_rank = "Gold 2 (3 Star)";
+} else if (cs_points === 29) {
+    cs_rank = "Gold 2 (4 Star)";
+} else if (cs_points === 30) {
+    cs_rank = "Gold 3 (1 Star)";
+} else if (cs_points === 31) {
+    cs_rank = "Gold 3 (2 Star)";
+} else if (cs_points === 32) {
+    cs_rank = "Gold 3 (3 Star)";
+} else if (cs_points === 33) {
+    cs_rank = "Gold 3 (4 Star)";
+} else if (cs_points === 34) {
+    cs_rank = "Gold 4 (1 Star)";
+} else if (cs_points === 35) {
+    cs_rank = "Gold 4 (2 Star)";
+} else if (cs_points === 36) {
+    cs_rank = "Gold 4 (3 Star)";
+} else if (cs_points === 37) {
+    cs_rank = "Gold 4 (4 Star)";
+} else if (cs_points === 38) {
+    cs_rank = "Platinum 1 (1 Star)";
+} else if (cs_points === 39) {
+    cs_rank = "Platinum 1 (2 Star)";
+} else if (cs_points === 40) {
+    cs_rank = "Platinum 1 (3 Star)";
+} else if (cs_points === 41) {
+    cs_rank = "Platinum 1 (4 Star)";
+} else if (cs_points === 42) {
+    cs_rank = "Platinum 1 (5 Star)";
+} else if (cs_points === 43) {
+    cs_rank = "Platinum 2 (1 Star)";
+} else if (cs_points === 44) {
+    cs_rank = "Platinum 2 (2 Star)";
+} else if (cs_points === 45) {
+    cs_rank = "Platinum 2 (3 Star)";
+} else if (cs_points === 46) {
+    cs_rank = "Platinum 2 (4 Star)";
+} else if (cs_points === 47) {
+    cs_rank = "Platinum 2 (5 Star)";
+} else if (cs_points === 48) {
+    cs_rank = "Platinum 3 (1 Star)";
+} else if (cs_points === 49) {
+    cs_rank = "Platinum 3 (2 Star)";
+} else if (cs_points === 50) {
+    cs_rank = "Platinum 3 (3 Star)";
+} else if (cs_points === 51) {
+    cs_rank = "Platinum 3 (4 Star)";
+} else if (cs_points === 52) {
+    cs_rank = "Platinum 3 (5 Star)";
+} else if (cs_points === 53) {
+    cs_rank = "Platinum 4 (1 Star)";
+} else if (cs_points === 54) {
+    cs_rank = "Platinum 4 (2 Star)";
+} else if (cs_points === 55) {
+    cs_rank = "Platinum 4 (3 Star)";
+} else if (cs_points === 56) {
+    cs_rank = "Platinum 4 (4 Star)";
+} else if (cs_points === 57) {
+    cs_rank = "Platinum 4 (5 Star)";
+} else if (cs_points === 58) {
+    cs_rank = "Diamond 1 (1 Star)";
+} else if (cs_points === 59) {
+    cs_rank = "Diamond 1 (2 Star)";
+} else if (cs_points === 60) {
+    cs_rank = "Diamond 1 (3 Star)";
+} else if (cs_points === 61) {
+    cs_rank = "Diamond 1 (4 Star)";
+} else if (cs_points === 62) {
+    cs_rank = "Diamond 2 (1 Star)";
+} else if (cs_points === 63) {
+    cs_rank = "Diamond 2 (2 Star)";
+} else if (cs_points === 64) {
+    cs_rank = "Diamond 2 (3 Star)";
+} else if (cs_points === 65) {
+    cs_rank = "Diamond 2 (4 Star)";
+} else if (cs_points === 66) {
+    cs_rank = "Diamond 2 (5 Star)";
+} else if (cs_points === 67) {
+    cs_rank = "Diamond 3 (1 Star)";
+} else if (cs_points === 68) {
+    cs_rank = "Diamond 3 (2 Star)";
+} else if (cs_points === 69) {
+    cs_rank = "Diamond 3 (3 Star)";
+} else if (cs_points === 70) {
+    cs_rank = "Diamond 3 (4 Star)";
+} else if (cs_points === 71) {
+    cs_rank = "Diamond 3 (5 Star)";
+} else if (cs_points === 72) {
+    cs_rank = "Diamond 4 (1 Star)";
+} else if (cs_points === 73) {
+    cs_rank = "Diamond 4 (2 Star)";
+} else if (cs_points === 74) {
+    cs_rank = "Diamond 4 (3 Star)";
+} else if (cs_points === 75) {
+    cs_rank = "Diamond 4 (4 Star)";
+} else if (cs_points === 76) {
+    cs_rank = "Diamond 4 (5 Star)";
+} else if (cs_points >= 77 && cs_points < 127) {
+    let h_rank = cs_points - 77;
+    cs_rank = "Heroic " + h_rank + " Star";
+} else if (cs_points >= 127) {
+    let m_rank = cs_points - 77;
+    cs_rank = "Master " + m_rank + " Star";
+}
+
+
+                    // check br rank
+
+                   // let br;
+if (1000 <= br_points && br_points <= 1100) {
+    br = "Bronze 1";
+} else if (1100 < br_points && br_points <= 1200) {
+    br = "Bronze 2";
+} else if (1200 < br_points && br_points <= 1300) {
+    br = "Bronze 3";
+} else if (1300 < br_points && br_points <= 1400) {
+    br = "Silver 1";
+} else if (1400 < br_points && br_points <= 1500) {
+    br = "Silver 2";
+} else if (1500 < br_points && br_points <= 1600) {
+    br = "Silver 3";
+} else if (1600 < br_points && br_points <= 1725) {
+    br = "Gold 1";
+} else if (1725 < br_points && br_points <= 1850) {
+    br = "Gold 2";
+} else if (1850 < br_points && br_points <= 1975) {
+    br = "Gold 3";
+} else if (1975 < br_points && br_points <= 2100) {
+    br = "Platinum 1";
+} else if (2100 < br_points && br_points <= 2350) {
+    br = "Platinum 2";
+} else if (2350 < br_points && br_points <= 2475) {
+    br = "Platinum 3";
+} else if (2475 < br_points && br_points <= 2600) {
+    br = "Platinum 4";
+} else if (2600 < br_points && br_points <= 2750) {
+    br = "Diamond 1";
+} else if (2750 < br_points && br_points <= 2900) {
+    br = "Diamond 2";
+} else if (2900 < br_points && br_points <= 3050) {
+    br = "Diamond 3";
+} else if (3050 < br_points && br_points <= 3200) {
+    br = "Diamond 4";
+} else {
+    br = "Heroic";
+}
+
+                            // Display 'nickname', 'createAt', and 'about' in the 'basic' section
+                            var apiDataElement = document.getElementById('apiData');
+                            apiDataElement.innerHTML = `<p>Name: ${nickname}</p><p>Created At: ${formattedCreatedAt}</p><p>Level: ${level}</p><p>BR Rank: ${br} (${br_points} Points)</p><p>CS Rank: ${cs_rank}</p><p>Likes: ${likes}</p><p>Exp: ${exp}</p><p>Last Login: ${lastlogin}</p><p> Booyah Pass Level: ${badgeno}</p><p> About: ${about}</p>`;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching social data:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+                function formatTimeFromMilliseconds(milliseconds) {
+    // Convert milliseconds to seconds
+    let seconds = Math.floor(milliseconds / 1000);
+
+    // Calculate minutes, hours, days, months, and years
+    let minutes = Math.floor(seconds / 60) % 60;
+    let hours = Math.floor(seconds / 3600) % 24;
+    let days = Math.floor(seconds / 86400) % 30; // Assuming 30 days per month
+    let months = Math.floor(seconds / 2592000) % 12; // Assuming 30 days per month
+    let years = Math.floor(seconds / 31536000);
+
+    // Construct the formatted time string
+    let formattedTime = '';
+
+    if (years > 0) {
+        formattedTime += `${years} ${years === 1 ? 'Year' : 'Years'} `;
+    }
+
+    if (months > 0) {
+        formattedTime += `${months} ${months === 1 ? 'Month' : 'Months'} `;
+    }
+
+    if (days > 0) {
+        formattedTime += `${days} ${days === 1 ? 'Day' : 'Days'} `;
+    }
+
+    if (hours > 0) {
+        formattedTime += `${hours} ${hours === 1 ? 'Hour' : 'Hours'} `;
+    }
+
+    if (minutes > 0) {
+        formattedTime += `${minutes} ${minutes === 1 ? 'Minute' : 'Minutes'} `;
+    }
+
+    // Calculate remaining seconds
+    let remainingSeconds = seconds % 60;
+
+    // Add seconds if it's less than a minute
+    if (remainingSeconds > 0) {
+        formattedTime += `${remainingSeconds} ${remainingSeconds === 1 ? 'Second' : 'Seconds'}`;
+    }
+
+    return formattedTime.trim();
+}
+
+                fetch(apiUrl3)
+                        .then(response2 => response2.json())
+                        .then(data2 => {
+
+                            // Solo 
+
+                            var gp = data2.soloStats.gamesPlayed
+                            var wins = data2.soloStats.wins
+                            var kills = data2.soloStats.kills
+                            var top10times = data2.soloStats.detailedStats.topNTimes
+                            var deaths = data2.soloStats.detailedStats.deaths
+                            var avg_dis_trav = (data2.soloStats.detailedStats.distanceTravelled)/1000000
+                            var dt = avg_dis_trav * gp
+                            var avg_st = formatTimeFromMilliseconds(data2.soloStats.detailedStats.survivalTime)
+                            var tot_st = formatTimeFromMilliseconds(data2.soloStats.detailedStats.survivalTime * gp)
+                            var hg = data2.soloStats.detailedStats.highestKills
+                            var tot_dmg = data2.soloStats.detailedStats.damage
+                            var avg_dmg = tot_dmg/gp
+                            var kd = kills/deaths
+                            var v_kills = data2.soloStats.detailedStats.roadKills
+                            var headshots = data2.soloStats.detailedStats.headshots
+                            var h_kills = data2.soloStats.detailedStats.headshotKills
+                            var pickups = data2.soloStats.detailedStats.pickUps
+                            var win_rate = (wins/gp) * 100
+                           // var avg_kill_pm = kills/gp
+
+                           // Duo
+
+                            var gp_all_duo = data2.duoStats.gamesPlayed
+                            var wins_all_duo = data2.duoStats.wins
+                            var kills_all_duo = data2.duoStats.kills
+                            var top10times_all_duo = data2.duoStats.detailedStats.topNTimes
+                            var deaths_all_duo = data2.duoStats.detailedStats.deaths
+                            var avg_dis_trav_all_duo = (data2.duoStats.detailedStats.distanceTravelled) / 1000000
+                            var dt_all_duo = avg_dis_trav_all_duo * gp_all_duo
+                            var avg_st_all_duo = formatTimeFromMilliseconds(data2.duoStats.detailedStats.survivalTime)
+                            var tot_st_all_duo = formatTimeFromMilliseconds(data2.duoStats.detailedStats.survivalTime * gp_all_duo)
+                            var hg_all_duo = data2.duoStats.detailedStats.highestKills
+                            var tot_dmg_all_duo = data2.duoStats.detailedStats.damage
+                            var avg_dmg_all_duo = tot_dmg_all_duo / gp_all_duo
+                            var kd_all_duo = kills_all_duo / deaths_all_duo
+                            var v_kills_all_duo = data2.duoStats.detailedStats.roadKills
+                            var headshots_all_duo = data2.duoStats.detailedStats.headshots
+                            var h_kills_all_duo = data2.duoStats.detailedStats.headshotKills
+                            var pickups_all_duo = data2.duoStats.detailedStats.pickUps
+                            var win_rate_all_duo = (wins_all_duo/gp_all_duo) * 100
+                            var revives_all_duo = data2.duoStats.detailedStats.revives
+
+                            // Squad
+
+                            var gp_all_quad = data2.quadStats.gamesPlayed;
+                            var wins_all_quad = data2.quadStats.wins;
+                            var kills_all_quad = data2.quadStats.kills;
+                            var top10times_all_quad = data2.quadStats.detailedStats.topNTimes;
+                            var deaths_all_quad = data2.quadStats.detailedStats.deaths;
+                            var avg_dis_trav_all_quad = data2.quadStats.detailedStats.distanceTravelled / 1000000;
+                            var dt_all_quad = avg_dis_trav_all_quad * gp_all_quad;
+                            var avg_st_all_quad = formatTimeFromMilliseconds(data2.quadStats.detailedStats.survivalTime);
+                            var tot_st_all_quad = formatTimeFromMilliseconds(data2.quadStats.detailedStats.survivalTime * gp_all_quad);
+                            var hg_all_quad = data2.quadStats.detailedStats.highestKills;
+                            var tot_dmg_all_quad = data2.quadStats.detailedStats.damage;
+                            var avg_dmg_all_quad = tot_dmg_all_quad / gp_all_quad;
+                            var kd_all_quad = kills_all_quad / deaths_all_quad;
+                            var v_kills_all_quad = data2.quadStats.detailedStats.roadKills;
+                            var headshots_all_quad = data2.quadStats.detailedStats.headshots;
+                            var h_kills_all_quad = data2.quadStats.detailedStats.headshotKills;
+                            var pickups_all_quad = data2.quadStats.detailedStats.pickUps;
+                            var win_rate_all_quad = (wins_all_quad / gp_all_quad) * 100;
+                            var revives_all_quad = data2.quadStats.detailedStats.revives;
+
+                            // idk
+
+                            fetch(apiUrl4)
+                .then(response3 => response3.json())
+                .then(data3 => {
+
+                    var none = data3.soloStats.messi
+
+                    var gp = data3.soloStats.gamesPlayed;
+                    var wins = data3.soloStats.wins;
+                    var kills = data3.soloStats.kills;
+                    var top10times = data3.soloStats.detailedStats.topNTimes;
+                    var deaths = data3.soloStats.detailedStats.deaths;
+                    var avg_dis_trav = data3.soloStats.detailedStats.distanceTravelled / 1000000;
+                    var dt = avg_dis_trav * gp;
+                    var avg_st = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime);
+                    var tot_st = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime * gp);
+                    var hg = data3.soloStats.detailedStats.highestKills;
+                    var tot_dmg = data3.soloStats.detailedStats.damage;
+                    var avg_dmg = tot_dmg / gp;
+                    var kd = kills / deaths;
+                    var v_kills = data3.soloStats.detailedStats.roadKills;
+                    var headshots = data3.soloStats.detailedStats.headshots;
+                    var h_kills = data3.soloStats.detailedStats.headshotKills;
+                    var pickups = data3.soloStats.detailedStats.pickUps;
+                    var win_rate = (wins / gp) * 100;
+                    
+                    // Duo
+                    
+                    var gp_classic_duo = data3.duoStats.gamesPlayed;
+                    var wins_classic_duo = data3.duoStats.wins;
+                    var kills_classic_duo = data3.duoStats.kills;
+                    var top10times_classic_duo = data3.duoStats.detailedStats.topNTimes;
+                    var deaths_classic_duo = data3.duoStats.detailedStats.deaths;
+                    var avg_dis_trav_classic_duo = data3.duoStats.detailedStats.distanceTravelled / 1000000;
+                    var dt_classic_duo = avg_dis_trav_classic_duo * gp_classic_duo;
+                    var avg_st_classic_duo = formatTimeFromMilliseconds(data3.duoStats.detailedStats.survivalTime);
+                    var tot_st_classic_duo = formatTimeFromMilliseconds(data3.duoStats.detailedStats.survivalTime * gp_classic_duo);
+                    var hg_classic_duo = data3.duoStats.detailedStats.highestKills;
+                    var tot_dmg_classic_duo = data3.duoStats.detailedStats.damage;
+                    var avg_dmg_classic_duo = tot_dmg_classic_duo / gp_classic_duo;
+                    var kd_classic_duo = kills_classic_duo / deaths_classic_duo;
+                    var v_kills_classic_duo = data3.duoStats.detailedStats.roadKills;
+                    var headshots_classic_duo = data3.duoStats.detailedStats.headshots;
+                    var h_kills_classic_duo = data3.duoStats.detailedStats.headshotKills;
+                    var pickups_classic_duo = data3.duoStats.detailedStats.pickUps;
+                    var win_rate_classic_duo = (wins_classic_duo / gp_classic_duo) * 100;
+                    var revives_classic_duo = data3.duoStats.detailedStats.revives;
+                    
+                    // Squad
+                    
+                    var gp_classic_quad = data3.quadStats.gamesPlayed;
+                    var wins_classic_quad = data3.quadStats.wins;
+                    var kills_classic_quad = data3.quadStats.kills;
+                    var top10times_classic_quad = data3.quadStats.detailedStats.topNTimes;
+                    var deaths_classic_quad = data3.quadStats.detailedStats.deaths;
+                    var avg_dis_trav_classic_quad = data3.quadStats.detailedStats.distanceTravelled / 1000000;
+                    var dt_classic_quad = avg_dis_trav_classic_quad * gp_classic_quad;
+                    var avg_st_classic_quad = formatTimeFromMilliseconds(data3.quadStats.detailedStats.survivalTime);
+                    var tot_st_classic_quad = formatTimeFromMilliseconds(data3.quadStats.detailedStats.survivalTime * gp_classic_quad);
+                    var hg_classic_quad = data3.quadStats.detailedStats.highestKills;
+                    var tot_dmg_classic_quad = data3.quadStats.detailedStats.damage;
+                    var avg_dmg_classic_quad = tot_dmg_classic_quad / gp_classic_quad;
+                    var kd_classic_quad = kills_classic_quad / deaths_classic_quad;
+                    var v_kills_classic_quad = data3.quadStats.detailedStats.roadKills;
+                    var headshots_classic_quad = data3.quadStats.detailedStats.headshots;
+                    var h_kills_classic_quad = data3.quadStats.detailedStats.headshotKills;
+                    var pickups_classic_quad = data3.quadStats.detailedStats.pickUps;
+                    var win_rate_classic_quad = (wins_classic_quad / gp_classic_quad) * 100;
+                    var revives_classic_quad = data3.quadStats.detailedStats.revives;
+
+
+
+                    var gp_classic_solo = data3.soloStats.gamesPlayed
+                    
+
+
+
+
+
+
+
+                    // Solo
+                    if (gp === none) gp = 0;
+                    if (wins === none) wins = 0;
+                    if (kills === none) kills = 0;
+                    if (top10times === none) top10times = 0;
+                    if (deaths === none) deaths = 0;
+                    if (avg_dis_trav === none) avg_dis_trav = 0;
+                    if (dt === none) dt = 0;
+                    if (avg_st === none) avg_st = 0;
+                    if (tot_st === none) tot_st = 0;
+                    if (hg === none) hg = 0;
+                    if (tot_dmg === none) tot_dmg = 0;
+                    if (avg_dmg === none) avg_dmg = 0;
+                    if (kd === none) kd = 0;
+                    if (v_kills === none) v_kills = 0;
+                    if (headshots === none) headshots = 0;
+                    if (h_kills === none) h_kills = 0;
+                    if (pickups === none) pickups = 0;
+                    if (win_rate === none) win_rate = 0;
+                    
+                    // Duo
+                    if (gp_classic_duo === none) gp_classic_duo = 0;
+                    if (wins_classic_duo === none) wins_classic_duo = 0;
+                    if (kills_classic_duo === none) kills_classic_duo = 0;
+                    if (top10times_classic_duo === none) top10times_classic_duo = 0;
+                    if (deaths_classic_duo === none) deaths_classic_duo = 0;
+                    if (avg_dis_trav_classic_duo === none) avg_dis_trav_classic_duo = 0;
+                    if (dt_classic_duo === none) dt_classic_duo = 0;
+                    if (avg_st_classic_duo === none) avg_st_classic_duo = 0;
+                    if (tot_st_classic_duo === none) tot_st_classic_duo = 0;
+                    if (hg_classic_duo === none) hg_classic_duo = 0;
+                    if (tot_dmg_classic_duo === none) tot_dmg_classic_duo = 0;
+                    if (avg_dmg_classic_duo === none) avg_dmg_classic_duo = 0;
+                    if (kd_classic_duo === none) kd_classic_duo = 0;
+                    if (v_kills_classic_duo === none) v_kills_classic_duo = 0;
+                    if (headshots_classic_duo === none) headshots_classic_duo = 0;
+                    if (h_kills_classic_duo === none) h_kills_classic_duo = 0;
+                    if (pickups_classic_duo === none) pickups_classic_duo = 0;
+                    if (win_rate_classic_duo === none) win_rate_classic_duo = 0;
+                    if (revives_classic_duo === none) revives_classic_duo = 0;
+                    
+                    // Squad
+                    if (gp_classic_quad === none) gp_classic_quad = 0;
+                    if (wins_classic_quad === none) wins_classic_quad = 0;
+                    if (kills_classic_quad === none) kills_classic_quad = 0;
+                    if (top10times_classic_quad === none) top10times_classic_quad = 0;
+                    if (deaths_classic_quad === none) deaths_classic_quad = 0;
+                    if (avg_dis_trav_classic_quad === none) avg_dis_trav_classic_quad = 0;
+                    if (dt_classic_quad === none) dt_classic_quad = 0;
+                    if (avg_st_classic_quad === none) avg_st_classic_quad = 0;
+                    if (tot_st_classic_quad === none) tot_st_classic_quad = 0;
+                    if (hg_classic_quad === none) hg_classic_quad = 0;
+                    if (tot_dmg_classic_quad === none) tot_dmg_classic_quad = 0;
+                    if (avg_dmg_classic_quad === none) avg_dmg_classic_quad = 0;
+                    if (kd_classic_quad === none) kd_classic_quad = 0;
+                    if (v_kills_classic_quad === none) v_kills_classic_quad = 0;
+                    if (headshots_classic_quad === none) headshots_classic_quad = 0;
+                    if (h_kills_classic_quad === none) h_kills_classic_quad = 0;
+                    if (pickups_classic_quad === none) pickups_classic_quad = 0;
+                    if (win_rate_classic_quad === none) win_rate_classic_quad = 0;
+                    if (revives_classic_quad === none) revives_classic_quad = 0;
+
+                    fetch(apiUrl5)
+                        .then(response2 => response2.json())
+                        .then(data3 => {
+
+                            var gp = data3.soloStats.gamesPlayed;
+                            var wins = data3.soloStats.wins;
+                            var kills = data3.soloStats.kills;
+                            var top10times = data3.soloStats.detailedStats.topNTimes;
+                            var deaths = data3.soloStats.detailedStats.deaths;
+                            var avg_dis_trav = data3.soloStats.detailedStats.distanceTravelled / 1000000;
+                            var dt = avg_dis_trav * gp;
+                            var avg_st = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime);
+                            var tot_st = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime * gp);
+                            var hg = data3.soloStats.detailedStats.highestKills;
+                            var tot_dmg = data3.soloStats.detailedStats.damage;
+                            var avg_dmg = tot_dmg / gp;
+                            var kd = kills / deaths;
+                            var v_kills = data3.soloStats.detailedStats.roadKills;
+                            var headshots = data3.soloStats.detailedStats.headshots;
+                            var h_kills = data3.soloStats.detailedStats.headshotKills;
+                            var pickups = data3.soloStats.detailedStats.pickUps;
+                            var win_rate = (wins / gp) * 100;
+                            
+                            // Duo
+                            
+                            var gp_rank_duo = data3.duoStats.gamesPlayed;
+                            var wins_rank_duo = data3.duoStats.wins;
+                            var kills_rank_duo = data3.duoStats.kills;
+                            var top10times_rank_duo = data3.duoStats.detailedStats.topNTimes;
+                            var deaths_rank_duo = data3.duoStats.detailedStats.deaths;
+                            var avg_dis_trav_rank_duo = data3.duoStats.detailedStats.distanceTravelled / 1000000;
+                            var dt_rank_duo = avg_dis_trav_rank_duo * gp_rank_duo;
+                            var avg_st_rank_duo = formatTimeFromMilliseconds(data3.duoStats.detailedStats.survivalTime);
+                            var tot_st_rank_duo = formatTimeFromMilliseconds(data3.duoStats.detailedStats.survivalTime * gp_rank_duo);
+                            var hg_rank_duo = data3.duoStats.detailedStats.highestKills;
+                            var tot_dmg_rank_duo = data3.duoStats.detailedStats.damage;
+                            var avg_dmg_rank_duo = tot_dmg_rank_duo / gp_rank_duo;
+                            var kd_rank_duo = kills_rank_duo / deaths_rank_duo;
+                            var v_kills_rank_duo = data3.duoStats.detailedStats.roadKills;
+                            var headshots_rank_duo = data3.duoStats.detailedStats.headshots;
+                            var h_kills_rank_duo = data3.duoStats.detailedStats.headshotKills;
+                            var pickups_rank_duo = data3.duoStats.detailedStats.pickUps;
+                            var win_rate_rank_duo = (wins_rank_duo / gp_rank_duo) * 100;
+                            var revives_rank_duo = data3.duoStats.detailedStats.revives;
+                            
+                            // Squad
+                            
+                            var gp_rank_quad = data3.quadStats.gamesPlayed;
+                            var wins_rank_quad = data3.quadStats.wins;
+                            var kills_rank_quad = data3.quadStats.kills;
+                            var top10times_rank_quad = data3.quadStats.detailedStats.topNTimes;
+                            var deaths_rank_quad = data3.quadStats.detailedStats.deaths;
+                            var avg_dis_trav_rank_quad = data3.quadStats.detailedStats.distanceTravelled / 1000000;
+                            var dt_rank_quad = avg_dis_trav_rank_quad * gp_rank_quad;
+                            var avg_st_rank_quad = formatTimeFromMilliseconds(data3.quadStats.detailedStats.survivalTime);
+                            var tot_st_rank_quad = formatTimeFromMilliseconds(data3.quadStats.detailedStats.survivalTime * gp_rank_quad);
+                            var hg_rank_quad = data3.quadStats.detailedStats.highestKills;
+                            var tot_dmg_rank_quad = data3.quadStats.detailedStats.damage;
+                            var avg_dmg_rank_quad = tot_dmg_rank_quad / gp_rank_quad;
+                            var kd_rank_quad = kills_rank_quad / deaths_rank_quad;
+                            var v_kills_rank_quad = data3.quadStats.detailedStats.roadKills;
+                            var headshots_rank_quad = data3.quadStats.detailedStats.headshots;
+                            var h_kills_rank_quad = data3.quadStats.detailedStats.headshotKills;
+                            var pickups_rank_quad = data3.quadStats.detailedStats.pickUps;
+                            var win_rate_rank_quad = (wins_rank_quad / gp_rank_quad) * 100;
+                            var revives_rank_quad = data3.quadStats.detailedStats.revives;
+                            
+                                                                
+
+
+
+
+
+        var apiDataElement2 = document.getElementById('stats');
+
+                            apiDataElement2.innerHTML = `
+                            <TABLE BORDER="3" BORDERCOLOR="BLACK" WIDTH="500" ALIGN="CENTER" CELLSPACING="5" CELLPADDING="8">
+                                <CAPTION> <B> BR All Time </B> </CAPTION>
+                                <TR>
+                                    <TH> Things </TH>
+                                    <TH> Solo </TH>
+                                    <TH> Duo </TH>
+                                    <TH> Squad </TH>
+                                </TR>
+
+                                <TR>
+                                    <TD> Games Played </TD>
+                                    <TD> ${gp} </TD>
+                                    <TD> ${gp_all_duo} </TD>
+                                    <TD> ${gp_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Wins </TD>
+                                    <TD> ${wins} </TD>
+                                    <TD> ${wins_all_duo} </TD>
+                                    <TD> ${wins_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Kills </TD>
+                                    <TD> ${kills} </TD>
+                                    <TD> ${kills_all_duo} </TD>
+                                    <TD> ${kills_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Deaths </TD>
+                                    <TD> ${deaths} </TD>
+                                    <TD> ${deaths_all_duo} </TD>
+                                    <TD> ${deaths_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> K/D </TD>
+                                    <TD> ${kd} </TD>
+                                    <TD> ${kd_all_duo} </TD>
+                                    <TD> ${kd_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Top 10 Times </TD>
+                                    <TD> ${top10times} </TD>
+                                    <TD> ${top10times_all_duo} </TD>
+                                    <TD> ${top10times_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> AVG Distance Travelled </TD>
+                                    <TD> ${avg_dis_trav} </TD>
+                                    <TD> ${avg_dis_trav_all_duo} </TD>
+                                    <TD> ${avg_dis_trav_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Total Distance Travelled </TD>
+                                    <TD> ${dt} </TD>
+                                    <TD> ${dt_all_duo} </TD>
+                                    <TD> ${dt_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> AVG Survial Time </TD>
+                                    <TD> ${avg_st} </TD>
+                                    <TD> ${avg_st_all_duo} </TD>
+                                    <TD> ${avg_st_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Total Time Survived</TD>
+                                    <TD> ${tot_st} </TD>
+                                    <TD> ${tot_st_all_duo} </TD>
+                                    <TD> ${tot_st_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Highest Kill(s) </TD>
+                                    <TD> ${hg} </TD>
+                                    <TD> ${hg_all_duo} </TD>
+                                    <TD> ${hg_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Average Damage Dealt Per Match </TD>
+                                    <TD> ${avg_dmg} </TD>
+                                    <TD> ${avg_dmg_all_duo} </TD>
+                                    <TD> ${avg_dis_trav_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Total Damage Dealt  </TD>
+                                    <TD> ${tot_dmg} </TD>
+                                    <TD> ${tot_dmg_all_duo} </TD>
+                                    <TD> ${tot_dmg_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Vehicle Kills </TD>
+                                    <TD> ${v_kills} </TD>
+                                    <TD> ${v_kills_all_duo} </TD>
+                                    <TD> ${v_kills_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Headshots </TD>
+                                    <TD> ${headshots} </TD>
+                                    <TD> ${headshots_all_duo} </TD>
+                                    <TD> ${headshots_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Headshot Kills </TD>
+                                    <TD> ${h_kills} </TD>
+                                    <TD> ${h_kills_all_duo} </TD>
+                                    <TD> ${h_kills_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Pick Ups </TD>
+                                    <TD> ${pickups} </TD>
+                                    <TD> ${pickups_all_duo} </TD>
+                                    <TD> ${pickups_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Win Rate </TD>
+                                    <TD> ${win_rate} </TD>
+                                    <TD> ${win_rate_all_duo} </TD>
+                                    <TD> ${win_rate_all_quad} </TD>
+                                </TR>
+
+                                <TR>
+                                    <TD> Revives </TD>
+                                    <TD> <I> No Revives in Solo </TD>
+                                    <TD> ${revives_all_duo} </TD>
+                                    <TD> ${revives_all_quad} </TD>
+                                </TR>
+
+                            </TABLE>
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+                            <TABLE BORDER="3" BORDERCOLOR="BLACK" WIDTH="500" ALIGN="CENTER" CELLSPACING="5" CELLPADDING="8">
+                                <CAPTION> <B> BR Classic </B> </CAPTION>
+                                <TR>
+                                    <TH> Things </TH>
+                                    <TH> Solo </TH>
+                                    <TH> Duo </TH>
+                                    <TH> Squad </TH>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Games Played </TD>
+                                    <TD> ${gp} </TD>
+                                    <TD> ${gp_classic_duo} </TD>
+                                    <TD> ${gp_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Wins </TD>
+                                    <TD> ${wins} </TD>
+                                    <TD> ${wins_classic_duo} </TD>
+                                    <TD> ${wins_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Kills </TD>
+                                    <TD> ${kills} </TD>
+                                    <TD> ${kills_classic_duo} </TD>
+                                    <TD> ${kills_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Deaths </TD>
+                                    <TD> ${deaths} </TD>
+                                    <TD> ${deaths_classic_duo} </TD>
+                                    <TD> ${deaths_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> K/D </TD>
+                                    <TD> ${kd} </TD>
+                                    <TD> ${kd_classic_duo} </TD>
+                                    <TD> ${kd_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Top 10 Times </TD>
+                                    <TD> ${top10times} </TD>
+                                    <TD> ${top10times_classic_duo} </TD>
+                                    <TD> ${top10times_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> AVG Distance Travelled </TD>
+                                    <TD> ${avg_dis_trav} </TD>
+                                    <TD> ${avg_dis_trav_classic_duo} </TD>
+                                    <TD> ${avg_dis_trav_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Total Distance Travelled </TD>
+                                    <TD> ${dt} </TD>
+                                    <TD> ${dt_classic_duo} </TD>
+                                    <TD> ${dt_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> AVG Survial Time </TD>
+                                    <TD> ${avg_st} </TD>
+                                    <TD> ${avg_st_classic_duo} </TD>
+                                    <TD> ${avg_st_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Total Time Survived</TD>
+                                    <TD> ${tot_st} </TD>
+                                    <TD> ${tot_st_classic_duo} </TD>
+                                    <TD> ${tot_st_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Highest Kill(s) </TD>
+                                    <TD> ${hg} </TD>
+                                    <TD> ${hg_classic_duo} </TD>
+                                    <TD> ${hg_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Average Damage Dealt Per Match </TD>
+                                    <TD> ${avg_dmg} </TD>
+                                    <TD> ${avg_dmg_classic_duo} </TD>
+                                    <TD> ${avg_dis_trav_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Total Damage Dealt  </TD>
+                                    <TD> ${tot_dmg} </TD>
+                                    <TD> ${tot_dmg_classic_duo} </TD>
+                                    <TD> ${tot_dmg_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Vehicle Kills </TD>
+                                    <TD> ${v_kills} </TD>
+                                    <TD> ${v_kills_classic_duo} </TD>
+                                    <TD> ${v_kills_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Headshots </TD>
+                                    <TD> ${headshots} </TD>
+                                    <TD> ${headshots_classic_duo} </TD>
+                                    <TD> ${headshots_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Headshot Kills </TD>
+                                    <TD> ${h_kills} </TD>
+                                    <TD> ${h_kills_classic_duo} </TD>
+                                    <TD> ${h_kills_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Pick Ups </TD>
+                                    <TD> ${pickups} </TD>
+                                    <TD> ${pickups_classic_duo} </TD>
+                                    <TD> ${pickups_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Win Rate </TD>
+                                    <TD> ${win_rate} </TD>
+                                    <TD> ${win_rate_classic_duo} </TD>
+                                    <TD> ${win_rate_classic_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Revives </TD>
+                                    <TD> <I> No Revives in Solo </I> </TD>
+                                    <TD> ${revives_classic_duo} </TD>
+                                    <TD> ${revives_classic_quad} </TD>
+                                </TR>
+                            </TABLE>
+
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+
+                            <TABLE BORDER="3" BORDERCOLOR="BLACK" WIDTH="500" ALIGN="CENTER" CELLSPACING="5" CELLPADDING="8">
+                                <CAPTION> <B> BR Rank </B> </CAPTION>
+                                <TR>
+                                    <TH> Things </TH>
+                                    <TH> Solo </TH>
+                                    <TH> Duo </TH>
+                                    <TH> Squad </TH>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Games Played </TD>
+                                    <TD> ${gp} </TD>
+                                    <TD> ${gp_rank_duo} </TD>
+                                    <TD> ${gp_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Wins </TD>
+                                    <TD> ${wins} </TD>
+                                    <TD> ${wins_rank_duo} </TD>
+                                    <TD> ${wins_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Kills </TD>
+                                    <TD> ${kills} </TD>
+                                    <TD> ${kills_rank_duo} </TD>
+                                    <TD> ${kills_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Deaths </TD>
+                                    <TD> ${deaths} </TD>
+                                    <TD> ${deaths_rank_duo} </TD>
+                                    <TD> ${deaths_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> K/D </TD>
+                                    <TD> ${kd} </TD>
+                                    <TD> ${kd_rank_duo} </TD>
+                                    <TD> ${kd_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Top 10 Times </TD>
+                                    <TD> ${top10times} </TD>
+                                    <TD> ${top10times_rank_duo} </TD>
+                                    <TD> ${top10times_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> AVG Distance Travelled </TD>
+                                    <TD> ${avg_dis_trav} </TD>
+                                    <TD> ${avg_dis_trav_rank_duo} </TD>
+                                    <TD> ${avg_dis_trav_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Total Distance Travelled </TD>
+                                    <TD> ${dt} </TD>
+                                    <TD> ${dt_rank_duo} </TD>
+                                    <TD> ${dt_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> AVG Survial Time </TD>
+                                    <TD> ${avg_st} </TD>
+                                    <TD> ${avg_st_rank_duo} </TD>
+                                    <TD> ${avg_st_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Total Time Survived</TD>
+                                    <TD> ${tot_st} </TD>
+                                    <TD> ${tot_st_rank_duo} </TD>
+                                    <TD> ${tot_st_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Highest Kill(s) </TD>
+                                    <TD> ${hg} </TD>
+                                    <TD> ${hg_rank_duo} </TD>
+                                    <TD> ${hg_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Average Damage Dealt Per Match </TD>
+                                    <TD> ${avg_dmg} </TD>
+                                    <TD> ${avg_dmg_rank_duo} </TD>
+                                    <TD> ${avg_dis_trav_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Total Damage Dealt  </TD>
+                                    <TD> ${tot_dmg} </TD>
+                                    <TD> ${tot_dmg_rank_duo} </TD>
+                                    <TD> ${tot_dmg_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Vehicle Kills </TD>
+                                    <TD> ${v_kills} </TD>
+                                    <TD> ${v_kills_rank_duo} </TD>
+                                    <TD> ${v_kills_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Headshots </TD>
+                                    <TD> ${headshots} </TD>
+                                    <TD> ${headshots_rank_duo} </TD>
+                                    <TD> ${headshots_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Headshot Kills </TD>
+                                    <TD> ${h_kills} </TD>
+                                    <TD> ${h_kills_rank_duo} </TD>
+                                    <TD> ${h_kills_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Pick Ups </TD>
+                                    <TD> ${pickups} </TD>
+                                    <TD> ${pickups_rank_duo} </TD>
+                                    <TD> ${pickups_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Win Rate </TD>
+                                    <TD> ${win_rate} </TD>
+                                    <TD> ${win_rate_rank_duo} </TD>
+                                    <TD> ${win_rate_rank_quad} </TD>
+                                </TR>
+                            
+                                <TR>
+                                    <TD> Revives </TD>
+                                    <TD> <I> No Revives in Solo </I> </TD>
+                                    <TD> ${revives_rank_duo} </TD>
+                                    <TD> ${revives_rank_quad} </TD>
+                                </TR>
+                            </TABLE>
+                            
+                            
+                            
+
+`;
+
+                            }) }) })
+        }
+       
+        
+    </script>
+
+</body>
+
+</html>
