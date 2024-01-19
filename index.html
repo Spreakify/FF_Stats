@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Switchable Website</title>
+    <title>FF Stats</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -58,7 +58,7 @@
     <div id="basic-section">
         <h2>Basic Section</h2>
         <div class="lime-box" id="apiData">
-            <p> Loading </p>
+            <a href="https://www.instagram.com/spreakk/"> Instagram: @spreakk </a>
             <!-- API data will be displayed here -->
         </div>
     </div>
@@ -66,7 +66,7 @@
     <div id="stats-section">
         <h2>Stats Section</h2>
         <div class="lime-box" id="stats">
-            <p>Loading</p>
+            <a href="https://www.instagram.com/spreakk/"> Instagram: @spreakk </a>
         </div>
     </div>
 
@@ -479,24 +479,25 @@ if (1000 <= br_points && br_points <= 1100) {
 
                     var none = data3.soloStats.messi
 
-                    var gp = data3.soloStats.gamesPlayed;
-                    var wins = data3.soloStats.wins;
-                    var kills = data3.soloStats.kills;
-                    var top10times = data3.soloStats.detailedStats.topNTimes;
-                    var deaths = data3.soloStats.detailedStats.deaths;
-                    var avg_dis_trav = data3.soloStats.detailedStats.distanceTravelled / 1000000;
-                    var dt = avg_dis_trav * gp;
-                    var avg_st = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime);
-                    var tot_st = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime * gp);
-                    var hg = data3.soloStats.detailedStats.highestKills;
-                    var tot_dmg = data3.soloStats.detailedStats.damage;
-                    var avg_dmg = tot_dmg / gp;
-                    var kd = kills / deaths;
-                    var v_kills = data3.soloStats.detailedStats.roadKills;
-                    var headshots = data3.soloStats.detailedStats.headshots;
-                    var h_kills = data3.soloStats.detailedStats.headshotKills;
-                    var pickups = data3.soloStats.detailedStats.pickUps;
-                    var win_rate = (wins / gp) * 100;
+                    var gp_classic_solo = data3.soloStats.gamesPlayed;
+                    var wins_classic_solo = data3.soloStats.wins;
+                    var kills_classic_solo = data3.soloStats.kills;
+                    var top10times_classic_solo = data3.soloStats.detailedStats.topNTimes;
+                    var deaths_classic_solo = data3.soloStats.detailedStats.deaths;
+                    var avg_dis_trav_classic_solo = data3.soloStats.detailedStats.distanceTravelled / 1000000;
+                    var dt_classic_solo = avg_dis_trav_classic_solo * gp_classic_solo;
+                    var avg_st_classic_solo = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime);
+                    var tot_st_classic_solo = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime * gp_classic_solo);
+                    var hg_classic_solo = data3.soloStats.detailedStats.highestKills;
+                    var tot_dmg_classic_solo = data3.soloStats.detailedStats.damage;
+                    var avg_dmg_classic_solo = tot_dmg_classic_solo / gp_classic_solo;
+                    var kd_classic_solo = kills_classic_solo / deaths_classic_solo;
+                    var v_kills_classic_solo = data3.soloStats.detailedStats.roadKills;
+                    var headshots_classic_solo = data3.soloStats.detailedStats.headshots;
+                    var h_kills_classic_solo = data3.soloStats.detailedStats.headshotKills;
+                    var pickups_classic_solo = data3.soloStats.detailedStats.pickUps;
+                    var win_rate_classic_solo = (wins_classic_solo / gp_classic_solo) * 100;
+                    
                     
                     // Duo
                     
@@ -544,7 +545,7 @@ if (1000 <= br_points && br_points <= 1100) {
 
 
 
-                    var gp_classic_solo = data3.soloStats.gamesPlayed
+                 //   var gp_classic_solo = data3.soloStats.gamesPlayed
                     
 
 
@@ -619,24 +620,26 @@ if (1000 <= br_points && br_points <= 1100) {
                         .then(response2 => response2.json())
                         .then(data3 => {
 
-                            var gp = data3.soloStats.gamesPlayed;
-                            var wins = data3.soloStats.wins;
-                            var kills = data3.soloStats.kills;
-                            var top10times = data3.soloStats.detailedStats.topNTimes;
-                            var deaths = data3.soloStats.detailedStats.deaths;
-                            var avg_dis_trav = data3.soloStats.detailedStats.distanceTravelled / 1000000;
-                            var dt = avg_dis_trav * gp;
-                            var avg_st = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime);
-                            var tot_st = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime * gp);
-                            var hg = data3.soloStats.detailedStats.highestKills;
-                            var tot_dmg = data3.soloStats.detailedStats.damage;
-                            var avg_dmg = tot_dmg / gp;
-                            var kd = kills / deaths;
-                            var v_kills = data3.soloStats.detailedStats.roadKills;
-                            var headshots = data3.soloStats.detailedStats.headshots;
-                            var h_kills = data3.soloStats.detailedStats.headshotKills;
-                            var pickups = data3.soloStats.detailedStats.pickUps;
-                            var win_rate = (wins / gp) * 100;
+                            var gp_rank_solo = data3.soloStats.gamesPlayed;
+                            var wins_rank_solo = data3.soloStats.wins;
+                            var kills_rank_solo = data3.soloStats.kills;
+                            var top10times_rank_solo = data3.soloStats.detailedStats.topNTimes;
+                            var deaths_rank_solo = data3.soloStats.detailedStats.deaths;
+                            var avg_dis_trav_rank_solo = data3.soloStats.detailedStats.distanceTravelled / 1000000;
+                            var dt_rank_solo = avg_dis_trav_rank_solo * gp_rank_solo;
+                            var avg_st_rank_solo = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime);
+                            var tot_st_rank_solo = formatTimeFromMilliseconds(data3.soloStats.detailedStats.survivalTime * gp_rank_solo);
+                            var hg_rank_solo = data3.soloStats.detailedStats.highestKills;
+                            var tot_dmg_rank_solo = data3.soloStats.detailedStats.damage;
+                            var avg_dmg_rank_solo = tot_dmg_rank_solo / gp_rank_solo;
+                            var kd_rank_solo = kills_rank_solo / deaths_rank_solo;
+                            var v_kills_rank_solo = data3.soloStats.detailedStats.roadKills;
+                            var headshots_rank_solo = data3.soloStats.detailedStats.headshots;
+                            var h_kills_rank_solo = data3.soloStats.detailedStats.headshotKills;
+                            var pickups_rank_solo = data3.soloStats.detailedStats.pickUps;
+                            var win_rate_rank_solo = (wins_rank_solo / gp_rank_solo) * 100;
+
+                            
                             
                             // Duo
                             
@@ -821,9 +824,9 @@ if (1000 <= br_points && br_points <= 1100) {
 
                                 <TR>
                                     <TD> Win Rate </TD>
-                                    <TD> ${win_rate} </TD>
-                                    <TD> ${win_rate_all_duo} </TD>
-                                    <TD> ${win_rate_all_quad} </TD>
+                                    <TD> ${win_rate}% </TD>
+                                    <TD> ${win_rate_all_duo}% </TD>
+                                    <TD> ${win_rate_all_quad}% </TD>
                                 </TR>
 
                                 <TR>
@@ -851,128 +854,128 @@ if (1000 <= br_points && br_points <= 1100) {
                             
                                 <TR>
                                     <TD> Games Played </TD>
-                                    <TD> ${gp} </TD>
+                                    <TD> ${gp_classic_solo} </TD>
                                     <TD> ${gp_classic_duo} </TD>
                                     <TD> ${gp_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Wins </TD>
-                                    <TD> ${wins} </TD>
+                                    <TD> ${wins_classic_solo} </TD>
                                     <TD> ${wins_classic_duo} </TD>
                                     <TD> ${wins_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Kills </TD>
-                                    <TD> ${kills} </TD>
+                                    <TD> ${kills_classic_solo} </TD>
                                     <TD> ${kills_classic_duo} </TD>
                                     <TD> ${kills_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Deaths </TD>
-                                    <TD> ${deaths} </TD>
+                                    <TD> ${deaths_classic_solo} </TD>
                                     <TD> ${deaths_classic_duo} </TD>
                                     <TD> ${deaths_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> K/D </TD>
-                                    <TD> ${kd} </TD>
+                                    <TD> ${kd_classic_solo} </TD>
                                     <TD> ${kd_classic_duo} </TD>
                                     <TD> ${kd_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Top 10 Times </TD>
-                                    <TD> ${top10times} </TD>
+                                    <TD> ${top10times_classic_solo} </TD>
                                     <TD> ${top10times_classic_duo} </TD>
                                     <TD> ${top10times_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> AVG Distance Travelled </TD>
-                                    <TD> ${avg_dis_trav} </TD>
+                                    <TD> ${avg_dis_trav_classic_solo} </TD>
                                     <TD> ${avg_dis_trav_classic_duo} </TD>
                                     <TD> ${avg_dis_trav_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Total Distance Travelled </TD>
-                                    <TD> ${dt} </TD>
+                                    <TD> ${dt_classic_solo} </TD>
                                     <TD> ${dt_classic_duo} </TD>
                                     <TD> ${dt_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> AVG Survial Time </TD>
-                                    <TD> ${avg_st} </TD>
+                                    <TD> ${avg_st_classic_solo} </TD>
                                     <TD> ${avg_st_classic_duo} </TD>
                                     <TD> ${avg_st_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Total Time Survived</TD>
-                                    <TD> ${tot_st} </TD>
+                                    <TD> ${tot_st_classic_solo} </TD>
                                     <TD> ${tot_st_classic_duo} </TD>
                                     <TD> ${tot_st_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Highest Kill(s) </TD>
-                                    <TD> ${hg} </TD>
+                                    <TD> ${hg_classic_solo} </TD>
                                     <TD> ${hg_classic_duo} </TD>
                                     <TD> ${hg_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Average Damage Dealt Per Match </TD>
-                                    <TD> ${avg_dmg} </TD>
+                                    <TD> ${avg_dmg_classic_solo} </TD>
                                     <TD> ${avg_dmg_classic_duo} </TD>
                                     <TD> ${avg_dis_trav_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Total Damage Dealt  </TD>
-                                    <TD> ${tot_dmg} </TD>
+                                    <TD> ${tot_dmg_classic_solo} </TD>
                                     <TD> ${tot_dmg_classic_duo} </TD>
                                     <TD> ${tot_dmg_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Vehicle Kills </TD>
-                                    <TD> ${v_kills} </TD>
+                                    <TD> ${v_kills_classic_solo} </TD>
                                     <TD> ${v_kills_classic_duo} </TD>
                                     <TD> ${v_kills_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Headshots </TD>
-                                    <TD> ${headshots} </TD>
+                                    <TD> ${headshots_classic_solo} </TD>
                                     <TD> ${headshots_classic_duo} </TD>
                                     <TD> ${headshots_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Headshot Kills </TD>
-                                    <TD> ${h_kills} </TD>
+                                    <TD> ${h_kills_classic_solo} </TD>
                                     <TD> ${h_kills_classic_duo} </TD>
                                     <TD> ${h_kills_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Pick Ups </TD>
-                                    <TD> ${pickups} </TD>
+                                    <TD> ${pickups_classic_solo} </TD>
                                     <TD> ${pickups_classic_duo} </TD>
                                     <TD> ${pickups_classic_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Win Rate </TD>
-                                    <TD> ${win_rate} </TD>
-                                    <TD> ${win_rate_classic_duo} </TD>
-                                    <TD> ${win_rate_classic_quad} </TD>
+                                    <TD> ${win_rate_classic_solo}% </TD>
+                                    <TD> ${win_rate_classic_duo}% </TD>
+                                    <TD> ${win_rate_classic_quad}% </TD>
                                 </TR>
                             
                                 <TR>
@@ -999,128 +1002,128 @@ if (1000 <= br_points && br_points <= 1100) {
                             
                                 <TR>
                                     <TD> Games Played </TD>
-                                    <TD> ${gp} </TD>
+                                    <TD> ${gp_rank_solo} </TD>
                                     <TD> ${gp_rank_duo} </TD>
                                     <TD> ${gp_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Wins </TD>
-                                    <TD> ${wins} </TD>
+                                    <TD> ${wins_rank_solo} </TD>
                                     <TD> ${wins_rank_duo} </TD>
                                     <TD> ${wins_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Kills </TD>
-                                    <TD> ${kills} </TD>
+                                    <TD> ${kills_rank_solo} </TD>
                                     <TD> ${kills_rank_duo} </TD>
                                     <TD> ${kills_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Deaths </TD>
-                                    <TD> ${deaths} </TD>
+                                    <TD> ${deaths_rank_solo} </TD>
                                     <TD> ${deaths_rank_duo} </TD>
                                     <TD> ${deaths_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> K/D </TD>
-                                    <TD> ${kd} </TD>
+                                    <TD> ${kd_rank_solo} </TD>
                                     <TD> ${kd_rank_duo} </TD>
                                     <TD> ${kd_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Top 10 Times </TD>
-                                    <TD> ${top10times} </TD>
+                                    <TD> ${top10times_rank_solo} </TD>
                                     <TD> ${top10times_rank_duo} </TD>
                                     <TD> ${top10times_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> AVG Distance Travelled </TD>
-                                    <TD> ${avg_dis_trav} </TD>
+                                    <TD> ${avg_dis_trav_rank_solo} </TD>
                                     <TD> ${avg_dis_trav_rank_duo} </TD>
                                     <TD> ${avg_dis_trav_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Total Distance Travelled </TD>
-                                    <TD> ${dt} </TD>
+                                    <TD> ${dt_rank_solo} </TD>
                                     <TD> ${dt_rank_duo} </TD>
                                     <TD> ${dt_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> AVG Survial Time </TD>
-                                    <TD> ${avg_st} </TD>
+                                    <TD> ${avg_st_rank_solo} </TD>
                                     <TD> ${avg_st_rank_duo} </TD>
                                     <TD> ${avg_st_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Total Time Survived</TD>
-                                    <TD> ${tot_st} </TD>
+                                    <TD> ${tot_st_rank_solo} </TD>
                                     <TD> ${tot_st_rank_duo} </TD>
                                     <TD> ${tot_st_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Highest Kill(s) </TD>
-                                    <TD> ${hg} </TD>
+                                    <TD> ${hg_rank_solo} </TD>
                                     <TD> ${hg_rank_duo} </TD>
                                     <TD> ${hg_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Average Damage Dealt Per Match </TD>
-                                    <TD> ${avg_dmg} </TD>
+                                    <TD> ${avg_dmg_rank_solo} </TD>
                                     <TD> ${avg_dmg_rank_duo} </TD>
                                     <TD> ${avg_dis_trav_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Total Damage Dealt  </TD>
-                                    <TD> ${tot_dmg} </TD>
+                                    <TD> ${tot_dmg_rank_solo} </TD>
                                     <TD> ${tot_dmg_rank_duo} </TD>
                                     <TD> ${tot_dmg_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Vehicle Kills </TD>
-                                    <TD> ${v_kills} </TD>
+                                    <TD> ${v_kills_rank_solo} </TD>
                                     <TD> ${v_kills_rank_duo} </TD>
                                     <TD> ${v_kills_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Headshots </TD>
-                                    <TD> ${headshots} </TD>
+                                    <TD> ${headshots_rank_solo} </TD>
                                     <TD> ${headshots_rank_duo} </TD>
                                     <TD> ${headshots_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Headshot Kills </TD>
-                                    <TD> ${h_kills} </TD>
+                                    <TD> ${h_kills_rank_solo} </TD>
                                     <TD> ${h_kills_rank_duo} </TD>
                                     <TD> ${h_kills_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Pick Ups </TD>
-                                    <TD> ${pickups} </TD>
+                                    <TD> ${pickups_rank_solo} </TD>
                                     <TD> ${pickups_rank_duo} </TD>
                                     <TD> ${pickups_rank_quad} </TD>
                                 </TR>
                             
                                 <TR>
                                     <TD> Win Rate </TD>
-                                    <TD> ${win_rate} </TD>
-                                    <TD> ${win_rate_rank_duo} </TD>
-                                    <TD> ${win_rate_rank_quad} </TD>
+                                    <TD> ${win_rate_rank_solo}% </TD>
+                                    <TD> ${win_rate_rank_duo}% </TD>
+                                    <TD> ${win_rate_rank_quad}% </TD>
                                 </TR>
                             
                                 <TR>
